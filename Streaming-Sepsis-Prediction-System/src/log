@@ -1,0 +1,20 @@
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+/Flask/flask-env/local/lib/python2.7/site-packages/numpy/lib/function_base.py:1110: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis)
+/Flask/flask-env/local/lib/python2.7/site-packages/numpy/core/_methods.py:80: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+8 Hours
+8
+75.170.143.165 - - [16/Nov/2017 05:24:32] "GET /fhir-app/bootstrap?window=8%20Hours&patient=bac33e5db1d0f9ffe2091044e58a9394 HTTP/1.1" 200 -
+test {'dt': array([datetime.datetime(2017, 10, 4, 0, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 1, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 2, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 3, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 4, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 5, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 6, 59, tzinfo=tzoffset(None, -14400)),
+       datetime.datetime(2017, 10, 4, 7, 59, tzinfo=tzoffset(None, -14400))], dtype=object), 'value': array([ 0.94016587,  0.95601148,  0.95875729,  0.95875729,  0.96231588,
+        0.95336116,  0.95480906,  0.97764027])}
+24 Hours
+24
+75.170.143.165 - - [16/Nov/2017 05:25:33] "GET /fhir-app/bootstrap?window=24%20Hours&patient=9007636124fa4a42caa84fc025236386 HTTP/1.1" 200 -

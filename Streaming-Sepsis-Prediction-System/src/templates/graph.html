@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/smart-on-fhir/client-js/v0.1.1/dist/fhir-client.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.css"rel="stylesheet" type="text/css"></link>
+<div id="chart"></div>
+ </div>
+  <button id=btn class="btn">patient</buton>
+  <button id=btn2 class="btn">patient2</buton>
+  <button id=btn3 class="btn">patient3</buton>
+</div>
+
+<script>
+
+function id(idd){var demo = {
+    serviceUrl: "http://35.184.247.92:8080/baseDstu2",        //allows you to connect to your smar server and query a patient
+    patientId: idd  // josuah p willams hca-pat-55 1137192 9995679 99912345
+};
+
+// Create a FHIR client (server URL, patient id in `demo`)
+var smart = FHIR.client(demo),
+    pt = smart.patient;                        //you will then store your queryed patient in a varible
+ var formatted = '';
+// Create a patient's name that will go in the title 
+function name() {pt.read()
+    .then(function (p) {
+    var name = p.name[0];
+    //formatted = name.given.join(" ") + " " + name.family;
+    formatted = name.use;
+    $("#patient_name").text(formatted);
+return formatted;
+});}
+name();
+
+console.log(name());
+//pt.read()
+//    .then(function (p) {
+ //   var phone = p.telecom[0];
+//    var formatted = phone.value;
+//    $("#patient_phone").text(formatted);
+//});
+
+var formatTime = d3.time.format("%e %B %Y");
+pt.api.search({type: "Observation", query: {patient: "1"}}) // Query lonic code for systolic and diastolic pressure
+    .then(function(bps) {
+        var data = [];
+        var datas = [];
+
+        var x = [];
+        var dia = 0
+        var sys = 0;
+       bps.data.entry.forEach(function(bp){            // how can we access diffrent datat from the model for a set of blood pressures do it for one blood pressure
+              var b = bp.resource
+	      console.log(bp);
+              console.log(bp.resource);   
+
+x.push(bp.resource.effectiveDateTime)
+
+
+             if(b.code.coding[0].code == "fakecode" ){
+           
+            datas.push(b.valueQuantity.value)
+               sys = b.valueQuantity.value
+            }
+             if(b.code.coding[0].code == "fakecode" ){
+               
+            data.push(b.valueQuantity.value)}
+              dia = b.valueQuantity.value
+              
+	      console.log(sys+"/"+dia)
+
+
+        });
+
+
+
+var chart = c3.generate({
+    title: {
+  text: function (d) {name(); return formatted+"'s Blood Pressure Data"; }
+},
+    data: {
+                x: 'x',
+	        xFormat: '%Y-%m-%dT%H:%M:%S-04:00',
+         json: {
+           Systolic: datas,
+            Diastolic: data,
+            x: x
+        },
+    
+    },
+
+     subchart: {
+        show: true
+    },
+    axis : {
+     x : {
+            type : 'timeseries',
+            tick: {
+              count: 6,
+               format: '%Y-%m-%dT%H:%M:%S-04:00',
+
+            },
+            label: { // ADD
+              text: 'Date',
+             position: 'outer-center'
+        }
+
+        },
+        y : {
+            tick: {
+                format: d3.format("s")
+            },
+            label: { // ADD
+          text: 'Blood Pressure mmHg',
+          position: 'outer-middle'
+        }
+        },
+
+
+
+
+
+
+    },
+    tooltip: {
+        format: {
+            title: function (d) {var dr=formatTime(d); return 'BP: ' + dr; },
+            value: function (value) {
+
+                return format(value);
+            }
+//            value: d3.format(',') // apply this format to both y and y2
+        }
+    }
+});
+
+
+    });   }
+
+    $(document).ready(function(){
+
+        id("1")
+      
+         $('#btn').click( function(){
+              id("1")
+
+         })
+          $('#btn2').click( function(){
+
+             id("2")
+
+         })
+          $('#btn3').click( function(){
+
+             id("3")
+
+
+         })
+
+    });
+
+</script>
+

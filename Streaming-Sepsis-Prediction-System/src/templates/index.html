@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://rawgithub.com/smart-on-fhir/client-js/master/dist/fhir-client.js"></script>
+  </head>
+  <body>
+	  <h1>Conditions for <span id="name"></span></h1>
+	      <ul id="cod_list"></ul>
+	      <button onclick="myFunction()">get patient id</button>
+    <script type="text/javascript">
+	var smart = FHIR.client({
+	  serviceUrl: 'http://104.154.131.162:8080/baseDstu2',
+	  patientId: '1'
+	});
+
+var test = smart.api.read({type: "Patient", id: "1"});
+function myFunction() {
+test.done(function(data){ cod_list.innerHTML  = ( data['data']['name'][0]['use']); });
+}
+ </script>
+   </body>
+</html>

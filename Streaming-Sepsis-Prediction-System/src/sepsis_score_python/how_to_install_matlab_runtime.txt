@@ -1,0 +1,13 @@
+% setup matlab runtime
+https://www.mathworks.com/products/compiler/mcr.html
+http://www.mathworks.com/help/compiler/install-the-matlab-runtime.html#bun27bq-1
+
+download the zip file
+wget http://ssd.mathworks.com/supportfiles/downloads/R2017a/deployment_files/R2017a/installers/glnxa64/MCR_R2017a_glnxa64_installer.zip
+sudo apt-get install unzip
+sudo unzip MCR_R2015b_glnxa64_installer.zip -d MCR
+cd MCR
+./install -mode silent -agreeToLicense yes
+
+% /usr/local/MATLAB/MATLAB_Runtime/v92
+
